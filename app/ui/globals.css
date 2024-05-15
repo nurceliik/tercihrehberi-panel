@@ -1,0 +1,22 @@
+:root {
+  --bg: #fafafa;
+  --bgSoft: white;
+  --text: black;
+  --textSoft: #252525;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: #8c55ff;
+  text-decoration: none;
+}
