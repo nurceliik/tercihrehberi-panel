@@ -1,106 +1,40 @@
+"use client";
+
+import React from "react";
 import styles from "./transactions.module.css";
 import Image from "next/image";
 
-const Transactions = () => {
-  return (
-    <div className={styles.container}>
-      <h2>Başlık</h2>
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <td>Name</td>
-            <td>Status</td>
-            <td>Date</td>
-            <td>Amount</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div className={styles.user}>
-                <Image
-                  src="/noavatar.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  className={styles.userImage}
-                />
-              </div>
-            </td>
-            <td>Nur Çelik</td>
-            <td>
-              <span className={`${styles.status} ${styles.pending}`}>
-                Pending
-              </span>
-            </td>
-            <td>14.02.2024</td>
-            <td>$548</td>
-          </tr>
-          <tr>
-            <td>
-              <div className={styles.user}>
-                <Image
-                  src="/noavatar.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  className={styles.userImage}
-                />
-              </div>
-            </td>
-            <td>Nur Çelik</td>
-            <td>
-              <span className={`${styles.status} ${styles.done}`}>Done</span>
-            </td>
-            <td>14.02.2024</td>
-            <td>$548</td>
-          </tr>
-          <tr>
-            <td>
-              <div className={styles.user}>
-                <Image
-                  src="/noavatar.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  className={styles.userImage}
-                />
-              </div>
-            </td>
-            <td>Nur Çelik</td>
-            <td>
-              <span className={`${styles.status} ${styles.pending}`}>
-                Pending
-              </span>
-            </td>
-            <td>14.02.2024</td>
-            <td>$548</td>
-          </tr>
-          <tr>
-            <td>
-              <div className={styles.user}>
-                <Image
-                  src="/noavatar.png"
-                  alt=""
-                  width={40}
-                  height={40}
-                  className={styles.userImage}
-                />
-              </div>
-            </td>
-            <td>Nur Çelik</td>
-            <td>
-              <span className={`${styles.status} ${styles.cancelled}`}>
-                Cancelled
-              </span>
-            </td>
-            <td>14.02.2024</td>
-            <td>$548</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
-};
+const Transactions = () => (
+  <div className={styles.container}>
+    <h2>Hoşgeldiniz</h2>
+    {/* <table className={styles.table}>
+      <thead>
+        <tr>
+          <td>Adı</td>
+          <td>Program Kodu</td>
+          <td>Öğrenim Dili</td>
+          <td>Program Türü</td>
+          <td>Puan Türü</td>
+        </tr>
+      </thead>
+      <tbody>
+        {Array.isArray(departments) &&
+          departments.slice(0, 15).map(
+            (
+              department // Sadece ilk 15 bölümü göster
+            ) => (
+              <tr key={department.id}>
+                <td>{department.title}</td>
+                <td>{department.progKodu}</td>
+                <td>{department.ogrDili}</td>
+                <td>{department.progTuru}</td>
+                <td>{department.puanTuru}</td>
+              </tr>
+            )
+          )}
+      </tbody>
+    </table> */}
+  </div>
+);
 
 export default Transactions;

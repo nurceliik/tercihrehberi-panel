@@ -13,27 +13,7 @@ const AddUserPage = () => {
           name="password"
           required
         />
-        <input type="phone" placeholder="phone" name="phone" />
-        <select name="isAdmin" id="isAdmin">
-          <option value={false}>Is Admin?</option>
-          <option value={true}>Yes</option>
-          <option value={false}>No</option>
-          <option value="computer">Computer</option>
-        </select>
-        <select name="isActive" id="isActive">
-          <option value={true}>Is Active?</option>
-          <option value={true}>Yes</option>
-          <option value={false}>No</option>
-          <option value="computer">Computer</option>
-        </select>
-
-        <textarea
-          name="address"
-          id="address"
-          rows="16"
-          placeholder="Address"
-        ></textarea>
-        <button type="submit">Submit</button>
+        <button type="submit">ekle</button>
       </form>
     </div>
   );

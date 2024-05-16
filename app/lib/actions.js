@@ -2,7 +2,6 @@
 
 import { connectToDB } from "./utils";
 import { User } from "./models";
-import { Product } from "./models";
 import { Faculty } from "./models";
 import { Yuksekokul } from "./models";
 import { Meslekyuksekokul } from "./models";
@@ -14,8 +13,7 @@ import { signIn } from "../auth";
 
 //User actions
 export const addUser = async (formData) => {
-  const { username, email, password, phone, address, isAdmin, isActive } =
-    Object.fromEntries(formData);
+  const { username, email, password } = Object.fromEntries(formData);
 
   try {
     connectToDB;
@@ -25,10 +23,6 @@ export const addUser = async (formData) => {
       username,
       email,
       password: hashedPassword,
-      phone,
-      address,
-      isAdmin,
-      isActive,
     });
 
     await newUser.save();
@@ -42,8 +36,7 @@ export const addUser = async (formData) => {
 };
 
 export const updateUser = async (formData) => {
-  const { id, username, email, password, phone, address, isAdmin, isActive } =
-    Object.fromEntries(formData);
+  const { id, username, email, password } = Object.fromEntries(formData);
 
   try {
     connectToDB;
@@ -52,10 +45,6 @@ export const updateUser = async (formData) => {
       username,
       email,
       password,
-      phone,
-      address,
-      isAdmin,
-      isActive,
     };
 
     Object.keys(updateFields).forEach(
@@ -90,12 +79,14 @@ export const deleteUser = async (formData) => {
 //Fakülte actions
 
 export const addFaculty = async (formData) => {
-  const { title, videoUrl, webSiteUrl, pdfUrl } = Object.fromEntries(formData);
+  const { title, img, videoUrl, webSiteUrl, pdfUrl } =
+    Object.fromEntries(formData);
 
   try {
     connectToDB;
     const newFaculty = new Faculty({
       title,
+      img,
       videoUrl,
       webSiteUrl,
       pdfUrl,
@@ -308,7 +299,7 @@ export const addDepartment = async (formData) => {
     tavanSiralama,
     genelKont,
     okulBirKont,
-  } = Object.fromEntries(formData);
+  } = formData;
 
   try {
     connectToDB;
@@ -321,20 +312,18 @@ export const addDepartment = async (formData) => {
       puanTuru,
       fakAdi,
       ogrDili,
-
-      // yillar: [
-      //   // ...yillar,
-      //   {
-      yil,
-      toplamYerlesen,
-      tabanPuan,
-      tavanPuan,
-      tabanSiralama,
-      tavanSiralama,
-      genelKont,
-      okulBirKont,
-      //   },
-      // ],
+      yillar: [
+        {
+          yil,
+          toplamYerlesen,
+          tabanPuan,
+          tavanPuan,
+          tabanSiralama,
+          tavanSiralama,
+          genelKont,
+          okulBirKont,
+        },
+      ],
     });
     await newDepartment.save();
   } catch (err) {
@@ -360,88 +349,86 @@ export const deleteDepartment = async (formData) => {
 };
 
 export const updateDepartment = async (formData) => {
-  const {
-    id,
-    title,
-    img,
-    progKodu,
-    progTuru,
-    puanTuru,
-    fakAdi,
-    ogrDili,
-    genelKont,
-    okulBirKont,
-    yil,
-    toplamYerlesen,
-    tabanPuan,
-    tavanPuan,
-    tabanSiralama,
-    tavanSiralama,
-  } = Object.fromEntries(formData);
+  console.log("updateDepartment called with formData:", formData);
   try {
-    connectToDB;
+    await connectToDB();
+
+    const department = await Department.findById(formData.id);
+    console.log("Department fetched:", department);
+
+    if (!department) {
+      throw new Error("Department not found");
+    }
 
     const updateFields = {
-      id,
-      title,
-      img,
-      progKodu,
-      progTuru,
-      puanTuru,
-      fakAdi,
-      ogrDili,
-      genelKont,
-      okulBirKont,
-      yil,
-      toplamYerlesen,
-      tabanPuan,
-      tavanPuan,
-      tabanSiralama,
-      tavanSiralama,
+      title: formData.title,
+      img: formData.img,
+      progKodu: formData.progKodu,
+      progTuru: formData.progTuru,
+      puanTuru: formData.puanTuru,
+      fakAdi: formData.fakAdi,
+      ogrDili: formData.ogrDili,
     };
 
-    Object.keys(updateFields).forEach(
-      (key) =>
-        (updateFields[key] === "" || updateFields[key] === undefined) &&
-        delete updateFields[key]
+    // Boş veya tanımsız alanları temizleyin
+
+    for (const key in updateFields) {
+      if (updateFields[key] === "" || updateFields[key] === undefined) {
+        delete updateFields[key];
+      }
+    }
+
+    const yearData = {
+      yil: formData.yil,
+      genelKont: formData.genelKont,
+      okulBirKont: formData.okulBirKont,
+      toplamYerlesen: formData.toplamYerlesen,
+      tabanPuan: formData.tabanPuan,
+      tavanPuan: formData.tavanPuan,
+      tabanSiralama: formData.tabanSiralama,
+      tavanSiralama: formData.tavanSiralama,
+    };
+
+    // for (const key in yearData) {
+    //   if (isNaN(yearData[key]) || yearData[key] === undefined) {
+    //     delete yearData[key];
+    //   }
+    // }
+
+    // Object.keys(yearData).forEach(
+    //   (key) => (yearData[key] === "" || undefined) && delete yearData[key]
+    // );
+
+    // const existingYearIndex = department.yillar.findIndex(
+    //   (item) => item.yil === yearData.yil
+    // );
+
+    // if (existingYearIndex !== -1) {
+    //   department.yillar[existingYearIndex] = {
+    //     ...department.yillar[existingYearIndex],
+    //     ...yearData,
+    //   };
+    // } else {
+    //   department.yillar.push(yearData);
+    // }
+    const existingYearIndex = department.yillar.findIndex(
+      (item) => item.yil === formData.yil
     );
 
-    await Department.findByIdAndUpdate(id, updateFields);
+    if (existingYearIndex !== -1) {
+      department.yillar[existingYearIndex] = yearData;
+    } else {
+      department.yillar.push(yearData);
+    }
+    // Diğer alanları güncelle
+    Object.assign(department, updateFields);
+
+    await department.save();
+    // revalidatePath ve redirect fonksiyonlarını nasıl kullanıyorsanız, burada tekrar ekleyin
   } catch (err) {
-    console.log(err);
+    console.error(err); // Hata mesajını konsola yazdır
     throw new Error("Failed to update Department");
   }
-
-  revalidatePath("/dashboard/departments");
-  redirect("/dashboard/departments");
-};
-
-//product actions
-
-export const addProduct = async (formData) => {
-  const { title, desc, price, stock, color, size } =
-    Object.fromEntries(formData);
-
-  try {
-    connectToDB;
-
-    const newProduct = new Product({
-      title,
-      desc,
-      price,
-      stock,
-      color,
-      size,
-    });
-
-    await newProduct.save();
-  } catch (err) {
-    console.log(err);
-    throw new Error("Failed to create a new product");
-  }
-
-  revalidatePath("/dashboard/products");
-  redirect("/dashboard/products");
 };
 
 export const authenticate = async (prevState, formData) => {

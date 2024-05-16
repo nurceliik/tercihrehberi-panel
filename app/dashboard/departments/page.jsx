@@ -11,6 +11,32 @@ const DepartmentsPage = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const { count, departments } = await fetchDepartments(q, page);
 
+  const formatValue = (value) => {
+    switch (value) {
+      case "lisans":
+        return "Lisans";
+      case "onlisans":
+        return "Önlisans";
+      case "sayisal":
+        return "Sayısal";
+      case "sozel":
+        return "Sözel";
+      case "dil":
+        return "Dil";
+      case "tyt":
+        return "TYT";
+      case "esitagirlik":
+        return "Eşit Ağırlık";
+      case "turkce":
+        return "Türkçe";
+      case "ingilizce":
+        return "İngilizce";
+
+      default:
+        return value;
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -22,31 +48,22 @@ const DepartmentsPage = async ({ searchParams }) => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <td>Adı</td>
-            <td>Taban Puanı</td>
+            <td>Bölüm Adı</td>
+            <td>Program Kodu</td>
+            <td>Program Türü</td>
             <td>Öğrenim Dili</td>
-            <td>Öğrenim Türü</td>
             <td>Puan Türü</td>
           </tr>
         </thead>
         <tbody>
           {departments.map((department) => (
             <tr key={department.id}>
-              <td>
-                <div>
-                  <Image
-                    src={department.img || "/noavatar.png"}
-                    alt=""
-                    width={40}
-                    height={40}
-                  />
-                  {department.title}
-                </div>
-              </td>
-              <td>{department.progTuru}</td>
-              <td>{department.ogrDili}</td>
-              <td>{department.puanTuru}</td>
-              <td>{department.pointType}</td>
+              <td>{formatValue(department.title)}</td>
+              <td>{formatValue(department.progKodu)}</td>
+              <td>{formatValue(department.progTuru)}</td>
+              <td>{formatValue(department.ogrDili)}</td>
+              <td>{formatValue(department.puanTuru)}</td>
+
               <td>
                 <div className={styles.buttons}>
                   <Link href={`/dashboard/departments/${department.id}`}>

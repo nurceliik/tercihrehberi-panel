@@ -3,18 +3,20 @@ import Chart from "../ui/dashboard/chart/chart";
 import styles from "../ui/dashboard/dashboard.module.css";
 import Transactions from "../ui/dashboard/transactions/transactions";
 import Rightbar from "../ui/dashboard/rightbar/rightbar";
+import { fetchDepartments } from "@/app/lib/data.js";
 
 const Dashboard = () => {
+  const departments = fetchDepartments();
   return (
     <div className={styles.wrapper}>
       <div className={styles.main}>
         <div className={styles.cards}>
+          {/* <Card />
           <Card />
-          <Card />
-          <Card />
+          <Card /> */}
         </div>
         <Transactions />
-        <Chart />
+        {/* <Chart /> */}
       </div>
       <div className={styles.side}>
         <Rightbar />

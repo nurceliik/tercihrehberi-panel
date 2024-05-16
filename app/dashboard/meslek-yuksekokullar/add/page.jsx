@@ -1,5 +1,5 @@
 import { addMeslekyuksekokul } from "@/app/lib/actions";
-import styles from "@/app/ui/dashboard/products/addProduct/addProduct.module.css";
+import styles from "@/app/ui/dashboard/examp/addExample/addExample.module.css";
 
 const AddMeslekyuksekokulPage = () => {
   return (

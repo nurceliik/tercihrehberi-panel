@@ -1,5 +1,4 @@
 import {
-  Product,
   User,
   Faculty,
   Department,
@@ -11,7 +10,7 @@ import { connectToDB } from "./utils";
 export const fetchUsers = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 20;
 
   try {
     connectToDB();
@@ -41,7 +40,7 @@ export const fetchUser = async (id) => {
 export const fetchProducts = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 20;
 
   try {
     connectToDB();
@@ -59,7 +58,7 @@ export const fetchProducts = async (q, page) => {
 export const fetchFaculties = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 20;
 
   try {
     connectToDB();
@@ -88,7 +87,7 @@ export const fetchFaculty = async (id) => {
 export const fetchYuksekokullar = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 20;
 
   try {
     connectToDB();
@@ -117,7 +116,7 @@ export const fetchYuksekokul = async (id) => {
 export const fetchMeslekyuksekokullar = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 20;
 
   try {
     connectToDB();
@@ -150,7 +149,7 @@ export const fetchMeslekyuksekokul = async (id) => {
 export const fetchDepartments = async (q, page) => {
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 20;
 
   try {
     connectToDB();

@@ -22,18 +22,15 @@ const UsersPage = async ({ searchParams }) => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <td>Name</td>
+            <td>Kullanıcı Adı</td>
             <td>Email</td>
-            <td>Created At</td>
-            <td>Role</td>
-            <td>Status</td>
-            <td>Action</td>
+            <td>Oluşturulduğu Tarih</td>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>
+              {/* <td>
                 <div className={styles.user}>
                   <Image
                     src={user.img || "/noavatar.png"}
@@ -44,11 +41,10 @@ const UsersPage = async ({ searchParams }) => {
                   />
                   {user.username}
                 </div>
-              </td>
+              </td> */}
+              <td>{user.username}</td>
               <td>{user.email}</td>
               <td>{user.createdAt?.toString().slice(4, 16)}</td>
-              <td>{user.isAdmin ? "Admin" : "Client"}</td>
-              <td>{user.isActive ? "active" : "passive"}</td>
               <td>
                 <div className={styles.buttons}>
                   <Link href={`/dashboard/users/${user.id}`}>

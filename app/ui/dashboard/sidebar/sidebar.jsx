@@ -18,20 +18,10 @@ import { auth, signOut } from "@/app/auth";
 const menuItems = [
   {
     list: [
-      /* {
-        title: "Dashboard",
-        path: "/dashboard",
-        icon: <MdDashboard />,
-      },*/
       {
         title: "Kullanıcılar",
         path: "/dashboard/users",
         icon: <MdSupervisedUserCircle />,
-      },
-      {
-        title: "Programlar",
-        path: "/dashboard/products",
-        icon: <MdShoppingBag />,
       },
       {
         title: "Fakülteler",
