@@ -334,6 +334,40 @@ export const addDepartment = async (formData) => {
   redirect("/dashboard/departments");
 };
 
+export const updateDepartment = async (formData) => {
+  const { id, title, img, progKodu, progTuru, puanTuru, fakAdi, ogrDili, yil } =
+    formData;
+  try {
+    connectToDB;
+
+    const updateFields = {
+      id,
+      title,
+      img,
+      progKodu,
+      progTuru,
+      puanTuru,
+      fakAdi,
+      ogrDili,
+      yil,
+    };
+
+    Object.keys(updateFields).forEach(
+      (key) =>
+        (updateFields[key] === "" || updateFields[key] === undefined) &&
+        delete updateFields[key]
+    );
+
+    await Department.findByIdAndUpdate(id, updateFields);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update Department");
+  }
+
+  revalidatePath("/dashboard/departments");
+  redirect("/dashboard/departments");
+};
+
 export const deleteDepartment = async (formData) => {
   const { id } = Object.fromEntries(formData);
 
@@ -346,89 +380,6 @@ export const deleteDepartment = async (formData) => {
   }
 
   revalidatePath("/dashboard/departments");
-};
-
-export const updateDepartment = async (formData) => {
-  console.log("updateDepartment called with formData:", formData);
-  try {
-    await connectToDB();
-
-    const department = await Department.findById(formData.id);
-    console.log("Department fetched:", department);
-
-    if (!department) {
-      throw new Error("Department not found");
-    }
-
-    const updateFields = {
-      title: formData.title,
-      img: formData.img,
-      progKodu: formData.progKodu,
-      progTuru: formData.progTuru,
-      puanTuru: formData.puanTuru,
-      fakAdi: formData.fakAdi,
-      ogrDili: formData.ogrDili,
-    };
-
-    // Boş veya tanımsız alanları temizleyin
-
-    for (const key in updateFields) {
-      if (updateFields[key] === "" || updateFields[key] === undefined) {
-        delete updateFields[key];
-      }
-    }
-
-    const yearData = {
-      yil: formData.yil,
-      genelKont: formData.genelKont,
-      okulBirKont: formData.okulBirKont,
-      toplamYerlesen: formData.toplamYerlesen,
-      tabanPuan: formData.tabanPuan,
-      tavanPuan: formData.tavanPuan,
-      tabanSiralama: formData.tabanSiralama,
-      tavanSiralama: formData.tavanSiralama,
-    };
-
-    // for (const key in yearData) {
-    //   if (isNaN(yearData[key]) || yearData[key] === undefined) {
-    //     delete yearData[key];
-    //   }
-    // }
-
-    // Object.keys(yearData).forEach(
-    //   (key) => (yearData[key] === "" || undefined) && delete yearData[key]
-    // );
-
-    // const existingYearIndex = department.yillar.findIndex(
-    //   (item) => item.yil === yearData.yil
-    // );
-
-    // if (existingYearIndex !== -1) {
-    //   department.yillar[existingYearIndex] = {
-    //     ...department.yillar[existingYearIndex],
-    //     ...yearData,
-    //   };
-    // } else {
-    //   department.yillar.push(yearData);
-    // }
-    const existingYearIndex = department.yillar.findIndex(
-      (item) => item.yil === formData.yil
-    );
-
-    if (existingYearIndex !== -1) {
-      department.yillar[existingYearIndex] = yearData;
-    } else {
-      department.yillar.push(yearData);
-    }
-    // Diğer alanları güncelle
-    Object.assign(department, updateFields);
-
-    await department.save();
-    // revalidatePath ve redirect fonksiyonlarını nasıl kullanıyorsanız, burada tekrar ekleyin
-  } catch (err) {
-    console.error(err); // Hata mesajını konsola yazdır
-    throw new Error("Failed to update Department");
-  }
 };
 
 export const authenticate = async (prevState, formData) => {

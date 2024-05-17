@@ -4,8 +4,8 @@ import "./ui/globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Deu Panel",
-  description: "Nur Celik ",
+  title: "Tercih Rehberi Panel",
+  description: "Dokuz Eylül ",
 };
 
 export default function RootLayout({ children }) {

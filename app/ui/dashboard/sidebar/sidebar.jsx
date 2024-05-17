@@ -2,16 +2,12 @@ import Image from "next/image";
 import MenuLink from "./menuLink/menuLink";
 import styles from "./sidebar.module.css";
 import {
-  MdDashboard,
   MdSupervisedUserCircle,
-  MdShoppingBag,
-  MdAttachMoney,
   MdWork,
-  MdAnalytics,
-  MdPeople,
-  MdOutlineSettings,
-  MdHelpCenter,
+  MdBlinds,
   MdLogout,
+  MdApartment,
+  MdApps,
 } from "react-icons/md";
 import { auth, signOut } from "@/app/auth";
 
@@ -26,7 +22,7 @@ const menuItems = [
       {
         title: "Fakülteler",
         path: "/dashboard/faculties",
-        icon: <MdAttachMoney />,
+        icon: <MdApartment />,
       },
       {
         title: "Yüksekokullar",
@@ -36,12 +32,12 @@ const menuItems = [
       {
         title: "Meslek Yüksekokullar",
         path: "/dashboard/meslek-yuksekokullar",
-        icon: <MdOutlineSettings />,
+        icon: <MdBlinds />,
       },
       {
         title: "Bölümler",
         path: "/dashboard/departments",
-        icon: <MdOutlineSettings />,
+        icon: <MdApps />,
       },
     ],
   },
